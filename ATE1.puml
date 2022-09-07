@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+abstract class Window
+{
+# sdlWindow : SDL_Window
++ {abstract} Clear()
++ {abstract} Update()
+}
+
+class Application
+{
++ AddWindow(window: Window*)
++ Run()
++ Quit()
+}
+
+Application "1" *--> "n" Window
+
+
+class Event
+{
+- {static} sdlEvent: SDL_Event
++ {static} poll(): int
++ {static} getType(): unsigned int
+}
+
+class SDL2Window extends Window
+{
+- sdlRenderer : SDL_Renderer
+}
+
+class OpenGLWindow extends Window
+{
+- glContext : SDL_GLContext
+}
+
+
+@enduml
