@@ -19,6 +19,8 @@ public:
     void AddWindow(Window *window);
     void Run();
     void Quit();
+
+    void RemoveWindow(Window *window);
 };
 
 

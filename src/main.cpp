@@ -8,5 +8,7 @@ int main() {
     app->AddWindow(new OpenGLWindow("OpenGL Window", 800, 600, SDL_WINDOW_OPENGL));
     app->AddWindow(new SDL2Window("SDL2 Window", 800, 600, SDL_WINDOW_SHOWN));
     app->Run();
+
+    delete app;
     return 0;
 }
