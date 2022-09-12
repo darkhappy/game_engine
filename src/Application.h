@@ -5,7 +5,7 @@
 #ifndef SDL_LIBRARY_APPLICATION_H
 #define SDL_LIBRARY_APPLICATION_H
 
-#include <vector>
+#include <map>
 #include <SDL2/SDL.h>
 #include "Window.h"
 #include "Event.h"
@@ -14,7 +14,7 @@
 /// @brief Represents an application
 class Application {
 private:
-    std::vector<Window *> windows; ///< The windows, see Window for more information
+    std::map<unsigned int, Window *> windows; ///< The windows, see Window for more information
 public:
     /// @brief Creates an application
     Application();
@@ -31,6 +31,10 @@ public:
 
     /// @brief Quits the application
     void Quit();
+
+    /// @brief Removes a window from the application
+    /// @param windowID The window to remove
+    void RemoveWindow(unsigned int windowID);
 };
 
 #endif //SDL_LIBRARY_APPLICATION_H

@@ -21,6 +21,14 @@ public:
     /// @brief Gets the event type
     /// @return The event type
     static unsigned int GetEventType();
+
+    /// @brief Gets the window event type
+    /// @return The window event type
+    static unsigned int GetWindowEventType();
+
+    /// @brief Gets the window ID
+    /// @return The window ID
+    static unsigned int GetWindowID();
 };
 
 #endif //SDL_LIBRARY_EVENT_H

@@ -33,6 +33,10 @@ public:
 
     /// @brief Updates the window
     virtual void Update() = 0;
+
+    /// @brief Gets the window ID
+    /// @return The window ID
+    unsigned int GetWindowID();
 };
 
 

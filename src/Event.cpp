@@ -13,3 +13,11 @@ int Event::PollEvent() {
 unsigned int Event::GetEventType() {
     return event.type;
 }
+
+unsigned int Event::GetWindowEventType() {
+    return event.window.event;
+}
+
+unsigned int Event::GetWindowID() {
+    return event.window.windowID;
+}
