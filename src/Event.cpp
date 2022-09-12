@@ -1,6 +1,6 @@
-//
-// Created by Jean-Philippe on 2022-09-08.
-//
+/// @file Event.cpp
+/// @brief Contains the implementation of the Event class in Event.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "Event.h"
 

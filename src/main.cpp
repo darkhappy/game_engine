@@ -9,6 +9,7 @@ int main() {
     app->AddWindow(
             new SDL2Window("SDL2 Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN,
                            -1, SDL_RENDERER_ACCELERATED));
+    app->AddWindow(new SDL2Window("SDL2 Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080));
     app->Run();
 
     // Useless right now since the application will always run until the windows are closed

@@ -1,6 +1,6 @@
-//
-// Created by Jean-Philippe on 2022-09-07.
-//
+/// @file OpenGLWindow.cpp
+/// @brief Contains the implementation of the OpenGLWindow class in OpenGLWindow.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "OpenGLWindow.h"
 

@@ -1,6 +1,6 @@
-//
-// Created by Jean-Philippe on 2022-09-07.
-//
+/// @file Window.cpp
+/// @brief Contains the implementation of the Window class in Window.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "Window.h"
 

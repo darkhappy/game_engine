@@ -1,9 +1,8 @@
-//
-// Created by Jean-Philippe on 2022-09-07.
-//
+/// @file SDL2Window.cpp
+/// @brief Contains the implementation of the SDL2Window class in SDL2Window.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "SDL2Window.h"
-
 
 SDL2Window::SDL2Window(const char *title, int windowX, int windowY, int width, int height, unsigned int flags,
                        int index, unsigned int rendererFlags) : Window(title, windowX, windowY, width, height, flags) {

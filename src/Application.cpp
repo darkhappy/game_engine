@@ -1,6 +1,6 @@
-//
-// Created by Jean-Philippe on 2022-09-07.
-//
+/// @file Application.cpp
+/// @brief Contains the implementation of the Application class in Application.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "Application.h"
 
