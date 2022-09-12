@@ -12,7 +12,7 @@ class OpenGLWindow : public Window {
 private:
     SDL_GLContext context;
 public:
-    OpenGLWindow(const char *title, int width, int height, unsigned int flags);
+    OpenGLWindow(const char *title, int windowX, int windowY, int width, int height, unsigned int flags);
     ~OpenGLWindow() override;
     void Clear() override;
     void Update() override;

@@ -4,9 +4,8 @@
 
 #include "OpenGLWindow.h"
 
-OpenGLWindow::OpenGLWindow(const char *title, int width, int height, unsigned int flags) : Window(title, width, height,
-                                                                                                  flags |
-                                                                                                  SDL_WINDOW_OPENGL) {
+OpenGLWindow::OpenGLWindow(const char *title, int windowX, int windowY, int width, int height, unsigned int flags)
+        : Window(title, windowX, windowY, width, height, flags | SDL_WINDOW_OPENGL) {
     context = SDL_GL_CreateContext(window);
 }
 

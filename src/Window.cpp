@@ -4,8 +4,8 @@
 
 #include "Window.h"
 
-Window::Window(const char *title, int width, int height, unsigned int flags) {
-    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+Window::Window(const char *title, int windowX, int windowY, int width, int height, unsigned int flags) {
+    window = SDL_CreateWindow(title, windowX, windowY, width, height, flags);
 }
 
 Window::~Window() {

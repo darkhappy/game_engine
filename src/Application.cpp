@@ -8,7 +8,6 @@ void Application::AddWindow(Window *window) {
     windows.push_back(window);
 }
 
-
 Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
     std::vector<Window *>();
