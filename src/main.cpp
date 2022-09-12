@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Application.h"
 #include "OpenGLWindow.h"
 #include "SDL2Window.h"
