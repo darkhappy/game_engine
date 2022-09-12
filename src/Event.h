@@ -12,6 +12,7 @@ private:
     static SDL_Event event;
 public:
     static int PollEvent();
+
     static unsigned int GetEventType();
 };
 

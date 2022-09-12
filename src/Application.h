@@ -12,12 +12,16 @@
 
 class Application {
 private:
-    std::vector<Window*> windows;
+    std::vector<Window *> windows;
 public:
     Application();
+
     ~Application();
+
     void AddWindow(Window *window);
+
     void Run();
+
     void Quit();
 };
 
