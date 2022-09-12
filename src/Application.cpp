@@ -8,10 +8,6 @@ void Application::AddWindow(Window *window) {
     windows.push_back(window);
 }
 
-void Application::RemoveWindow(Window *window) {
-    windows.erase(std::remove(windows.begin(), windows.end(), window), windows.end());
-    delete window;
-}
 
 Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -19,30 +15,15 @@ Application::Application() {
 }
 
 Application::~Application() {
-    for (Window *window: windows) {
-        delete window;
-    }
-    windows.clear();
-    SDL_Quit();
+    Quit();
 }
 
 void Application::Run() {
-    bool running = true;
-    while (running) {
+    while (!windows.empty()) {
         while (Event::PollEvent()) {
             switch (Event::GetEventType()) {
                 case SDL_QUIT:
-                    running = false;
-                    break;
-                case SDL_WINDOWEVENT:
-                    if (Event::GetWindowEvent() == SDL_WINDOWEVENT_CLOSE) {
-                        for (Window *window: windows) {
-                            if (window->GetWindowId() == Event::GetWindowId()) {
-                                RemoveWindow(window);
-                                break;
-                            }
-                        }
-                    }
+                    Quit();
                     break;
                 default:
                     break;
@@ -57,4 +38,9 @@ void Application::Run() {
 }
 
 void Application::Quit() {
+    for (Window *window: windows) {
+        delete window;
+    }
+    windows.clear();
+    SDL_Quit();
 }

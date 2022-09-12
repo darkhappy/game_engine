@@ -13,8 +13,6 @@ private:
 public:
     static int PollEvent();
     static unsigned int GetEventType();
-    static unsigned int GetWindowId();
-    static unsigned char GetWindowEvent();
 };
 
 

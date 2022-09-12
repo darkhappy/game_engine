@@ -15,7 +15,6 @@ public:
     virtual ~Window() = 0;
     virtual void Clear() = 0;
     virtual void Update() = 0;
-    unsigned int GetWindowId();
 };
 
 

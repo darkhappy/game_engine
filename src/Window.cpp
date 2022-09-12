@@ -11,7 +11,3 @@ Window::Window(const char *title, int width, int height, unsigned int flags) {
 Window::~Window() {
     SDL_DestroyWindow(window);
 }
-
-unsigned int Window::GetWindowId() {
-    return SDL_GetWindowID(window);
-}
