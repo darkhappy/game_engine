@@ -11,6 +11,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 
-add_executable(sdl_library src/main.cpp src/Application.cpp src/Application.h src/Window.cpp src/Window.h src/SDL2Window.cpp src/SDL2Window.h src/OpenGLWindow.cpp src/OpenGLWindow.h src/Event.cpp src/Event.h)
+add_executable(sdl_library src/main.cpp src/Application.cpp src/Application.h src/Window.cpp src/Window.h src/GLContext.cpp src/GLContext.h src/Event.cpp src/Event.h)
 
 target_link_libraries(sdl_library ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES})

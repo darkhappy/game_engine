@@ -16,19 +16,11 @@ private:
 public:
     /// @brief Gets information about the next event
     /// @return 1 if there is an event, 0 if there is no event, -1 if there is an error
-    static int PollEvent();
+    static int poll();
 
     /// @brief Gets the event type
     /// @return The event type
-    static unsigned int GetEventType();
-
-    /// @brief Gets the window event type
-    /// @return The window event type
-    static unsigned int GetWindowEventType();
-
-    /// @brief Gets the window ID
-    /// @return The window ID
-    static unsigned int GetWindowID();
+    static unsigned int getEventType();
 };
 
 #endif //SDL_LIBRARY_EVENT_H

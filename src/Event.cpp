@@ -6,18 +6,10 @@
 
 SDL_Event Event::event;
 
-int Event::PollEvent() {
+int Event::poll() {
     return SDL_PollEvent(&event);
 }
 
-unsigned int Event::GetEventType() {
+unsigned int Event::getEventType() {
     return event.type;
-}
-
-unsigned int Event::GetWindowEventType() {
-    return event.window.event;
-}
-
-unsigned int Event::GetWindowID() {
-    return event.window.windowID;
 }

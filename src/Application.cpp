@@ -8,49 +8,28 @@ Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
 }
 
-Application::~Application() {
-    Quit();
-}
+Application::~Application() = default;
 
-void Application::AddWindow(Window *window) {
-    windows[window->GetWindowID()] = window;
-}
-
-void Application::RemoveWindow(unsigned int windowID) {
-    delete windows[windowID];
-    windows.erase(windowID);
-}
-
-void Application::Run() {
-    while (!windows.empty()) {
-        while (Event::PollEvent()) {
-            switch (Event::GetEventType()) {
+void Application::start() {
+    bool running = true;
+    while (running) {
+        while (Event::poll()) {
+            switch (Event::getEventType()) {
                 case SDL_QUIT:
-                    Quit();
-                    break;
-                case SDL_WINDOWEVENT:
-                    switch (Event::GetWindowEventType()) {
-                        case SDL_WINDOWEVENT_CLOSE:
-                            RemoveWindow(Event::GetWindowID());
-                            break;
-                    }
+                    running = false;
                     break;
                 default:
                     break;
             }
         }
 
-        for (auto window: windows) {
-            window.second->Clear();
-            window.second->Update();
-        }
+        context.clear();
+        context.update();
     }
 }
 
-void Application::Quit() {
-    for (auto window: windows) {
-        delete window.second;
-    }
-    windows.clear();
-    SDL_Quit();
+Application &Application::GetInstance() {
+    return instance;
 }
+
+Application Application::instance;

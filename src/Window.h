@@ -21,22 +21,19 @@ protected:
     /// @param height The height of the window, by default 720
     /// @param flags The flags of the window, see SDL_CreateWindow() for more information
     /// @see SDL_CreateWindow()
-    explicit Window(const char *title = "Window", int windowX = SDL_WINDOWPOS_CENTERED, int windowY = SDL_WINDOWPOS_CENTERED,
-           int width = 1280, int height = 720, unsigned int flags = 0);
+    explicit Window(const char *title = "Window", int windowX = SDL_WINDOWPOS_CENTERED,
+                    int windowY = SDL_WINDOWPOS_CENTERED,
+                    int width = 1280, int height = 720, unsigned int flags = 0);
 
 public:
     /// @brief Destroys the window
     virtual ~Window() = 0;
 
     /// @brief Clears the window
-    virtual void Clear() = 0;
+    virtual void clear() = 0;
 
     /// @brief Updates the window
-    virtual void Update() = 0;
-
-    /// @brief Gets the window ID
-    /// @return The window ID
-    unsigned int GetWindowID();
+    virtual void update() = 0;
 };
 
 

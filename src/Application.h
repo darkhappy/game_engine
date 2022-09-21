@@ -5,36 +5,31 @@
 #ifndef SDL_LIBRARY_APPLICATION_H
 #define SDL_LIBRARY_APPLICATION_H
 
-#include <map>
 #include <SDL2/SDL.h>
-#include "Window.h"
+#include "GLContext.h"
 #include "Event.h"
 
 /// @class Application
 /// @brief Represents an application
 class Application {
 private:
-    std::map<unsigned int, Window *> windows; ///< The windows, see Window for more information
-public:
+    GLContext context; ///< The window that the app is running, see Window for more information
+    static Application instance; ///< The instance of the application
+
     /// @brief Creates an application
     Application();
+
+public:
 
     /// @brief Destroys the application
     ~Application();
 
-    /// @brief Adds a window to the application
-    /// @param window The window to add
-    void AddWindow(Window *window);
+    /// @brief Gets the instance of the application
+    /// @return The instance of the application
+    static Application &GetInstance();
 
     /// @brief Runs the application
-    void Run();
-
-    /// @brief Quits the application
-    void Quit();
-
-    /// @brief Removes a window from the application
-    /// @param windowID The window to remove
-    void RemoveWindow(unsigned int windowID);
+    void start();
 };
 
 #endif //SDL_LIBRARY_APPLICATION_H
