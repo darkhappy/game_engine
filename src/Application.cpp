@@ -24,6 +24,7 @@ void Application::start() {
         }
 
         context.clear();
+        context.draw();
         context.update();
     }
 }

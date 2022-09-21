@@ -7,12 +7,14 @@
 
 #include <SDL2/SDL_opengl.h>
 #include "Window.h"
+#include "math/Matrix44d.h"
 
 /// @class GLContext
 /// @brief Represents a window using OpenGL
 class GLContext : public Window {
 private:
     SDL_GLContext context; ///< The context
+    Matrix44d projectionMatrix; ///< The projection matrix
 public:
     /// @brief Creates a window
     /// @param title The title of the window, by default "OpenGL Window"
@@ -34,6 +36,9 @@ public:
 
     /// @brief Updates the window
     void update() override;
+
+    // @brief Draws something
+    void draw();
 };
 
 
