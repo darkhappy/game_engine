@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.23)
-project(sdl_library)
+cmake_minimum_required(VERSION 3.19)
+
+project(game_engine VERSION 0.1.0
+        DESCRIPTION "A game engine"
+        LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -11,6 +14,15 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 
-add_executable(sdl_library src/main.cpp src/Application.cpp src/Application.h src/Window.cpp src/Window.h src/GLContext.cpp src/GLContext.h src/Event.cpp src/Event.h src/math/Matrix44d.cpp src/math/Matrix44d.h src/math/Vector3d.cpp src/math/Vector3d.h)
+# Include our math library that we wrote in lib/math
+include_directories(include/math/include)
 
-target_link_libraries(sdl_library ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES})
+# Add the executable
+add_executable(game
+        src/main.cpp
+        src/Window.cpp
+        src/Event.cpp
+        src/GLContext.cpp
+        src/Application.cpp)
+
+target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} math)

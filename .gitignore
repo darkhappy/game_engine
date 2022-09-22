@@ -84,7 +84,7 @@ cmake-build-*/
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
-# File-based project format
+# File-based math format
 *.iws
 
 # IntelliJ
@@ -197,5 +197,8 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+### clangd ###
+.cache
 
 # End of https://www.toptal.com/developers/gitignore/api/clion,c++,cmake,macos

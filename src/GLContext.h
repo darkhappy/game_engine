@@ -7,7 +7,7 @@
 
 #include <SDL2/SDL_opengl.h>
 #include "Window.h"
-#include "math/Matrix44d.h"
+#include "Matrix44d.h"
 
 /// @class GLContext
 /// @brief Represents a window using OpenGL
