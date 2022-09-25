@@ -1,7 +1,7 @@
 #include "Application.h"
 
 int main() {
-    Application::GetInstance().start();
+    Application::getInstance().start();
 
     return 0;
 }

@@ -28,9 +28,3 @@ void Application::start() {
         context.update();
     }
 }
-
-Application &Application::GetInstance() {
-    return instance;
-}
-
-Application Application::instance;

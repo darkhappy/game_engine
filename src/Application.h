@@ -7,26 +7,22 @@
 
 #include <SDL2/SDL.h>
 #include "GLContext.h"
+#include "Singleton.h"
 #include "Event.h"
 
 /// @class Application
 /// @brief Represents an application
-class Application {
+class Application : public Singleton<Application> {
 private:
     GLContext context; ///< The window that the app is running, see Window for more information
-    static Application instance; ///< The instance of the application
+
+public:
 
     /// @brief Creates an application
     Application();
 
-public:
-
     /// @brief Destroys the application
     ~Application();
-
-    /// @brief Gets the instance of the application
-    /// @return The instance of the application
-    static Application &GetInstance();
 
     /// @brief Runs the application
     void start();

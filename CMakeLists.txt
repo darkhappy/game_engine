@@ -23,6 +23,7 @@ add_executable(game
         src/Window.cpp
         src/Event.cpp
         src/GLContext.cpp
-        src/Application.cpp)
+        src/Application.cpp
+        src/Singleton.cpp)
 
 target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} math)
