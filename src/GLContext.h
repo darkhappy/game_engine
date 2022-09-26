@@ -5,7 +5,9 @@
 #ifndef SDL_LIBRARY_GLCONTEXT_H
 #define SDL_LIBRARY_GLCONTEXT_H
 
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_ttf.h>
 #include "Window.h"
 #include "Matrix44d.h"
 
@@ -16,6 +18,7 @@ private:
     SDL_GLContext context; ///< The context
     Matrix44d projectionMatrix; ///< The projection matrix
     unsigned int textureID; ///< The texture ID
+    TTF_Font* ttfFont; ///< The font
 public:
     /// @brief Creates a window
     /// @param title The title of the window, by default "OpenGL Window"

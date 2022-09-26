@@ -16,6 +16,10 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
+# Include SDL2_ttf
+find_package(SDL2_ttf REQUIRED)
+include_directories(${SDL2TTF_INCLUDE_DIRS})
+
 # Include OpenGL
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
@@ -35,4 +39,4 @@ add_executable(game
         src/Application.cpp
         src/Singleton.cpp)
 
-target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${OPENGL_LIBRARIES} math_library)
+target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARY} ${OPENGL_LIBRARIES} math_library)
