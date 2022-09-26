@@ -14,7 +14,10 @@ include_directories(${SDL2_INCLUDE_DIRS})
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIRS})
 
-# Include our math library that we wrote in lib/math
+# Build our math library
+add_subdirectory(include/math)
+
+# Include our math library
 include_directories(include/math/include)
 
 # Add the executable
@@ -26,4 +29,4 @@ add_executable(game
         src/Application.cpp
         src/Singleton.cpp)
 
-target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} math)
+target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} math_library   )
