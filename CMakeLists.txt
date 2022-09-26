@@ -6,9 +6,15 @@ project(game_engine VERSION 0.1.0
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 # Include SDL2
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
+
+# Include SDL2_image
+find_package(SDL2_image REQUIRED)
+include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
 # Include OpenGL
 find_package(OpenGL REQUIRED)
@@ -29,4 +35,4 @@ add_executable(game
         src/Application.cpp
         src/Singleton.cpp)
 
-target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES} math_library   )
+target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${OPENGL_LIBRARIES} math_library)

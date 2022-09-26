@@ -6,6 +6,7 @@
 
 Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
+    IMG_Init(IMG_INIT_PNG);
 }
 
 Application::~Application() = default;

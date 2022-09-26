@@ -6,6 +6,7 @@
 #define SDL_LIBRARY_APPLICATION_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "GLContext.h"
 #include "Singleton.h"
 #include "Event.h"
