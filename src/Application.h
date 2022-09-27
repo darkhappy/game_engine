@@ -11,13 +11,15 @@
 #include "GLContext.h"
 #include "Singleton.h"
 #include "Event.h"
+#include "Chronometer.h"
 
 /// @class Application
 /// @brief Represents an application
 class Application : public Singleton<Application> {
 private:
     GLContext context; ///< The window that the app is running, see Window for more information
-
+    int fps; ///< The fps of the application
+    Chronometer fpsChronometer; ///< The chronometer used to calculate the fps
 public:
 
     /// @brief Creates an application

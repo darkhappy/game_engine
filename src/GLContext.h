@@ -43,6 +43,8 @@ public:
 
     // @brief Draws something
     void draw();
+
+    void showFPS(int fps);
 };
 
 

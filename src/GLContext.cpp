@@ -2,7 +2,10 @@
 /// @brief Contains the implementation of the GLContext class in GLContext.h
 /// @author Jean-Philippe (me\@darkh.app)
 
+#include <string>
 #include "GLContext.h"
+
+using std::to_string;
 
 GLContext::GLContext(const char *title, int windowX, int windowY, int width, int height, unsigned int flags)
         : Window(title, windowX, windowY, width, height, flags | SDL_WINDOW_OPENGL) {
@@ -11,6 +14,9 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
     context = SDL_GL_CreateContext(window);
     projectionMatrix.loadOrthographic(width, height);
     ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 42);
+
+    // remove the fps cap
+    SDL_GL_SetSwapInterval(0);
 
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
@@ -26,8 +32,27 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
      * SDL_FreeSurface(surface);
      */
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+GLContext::~GLContext() {
+    TTF_CloseFont(ttfFont);
+    glDeleteTextures(1, &textureID);
+    SDL_GL_DeleteContext(context);
+}
+
+void GLContext::clear() {
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void GLContext::update() {
+    SDL_GL_SwapWindow(window);
+}
+
+void GLContext::showFPS(int fps) {
     // Load text
-    SDL_Surface *surface = TTF_RenderText_Blended(ttfFont, "we love vim baby", {255, 150, 150, 255});
+    SDL_Surface *surface = TTF_RenderText_Blended(ttfFont, (to_string(fps) + " fps lol").c_str(), {255, 255, 255, 255});
     // Fix the text being wacky
     unsigned int realPitch = surface->w * surface->format->BytesPerPixel;
     auto *src = (unsigned char *) surface->pixels;
@@ -49,22 +74,6 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
 
     SDL_FreeSurface(surface);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-}
-
-GLContext::~GLContext() {
-    TTF_CloseFont(ttfFont);
-    glDeleteTextures(1, &textureID);
-    SDL_GL_DeleteContext(context);
-}
-
-void GLContext::clear() {
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
-void GLContext::update() {
-    SDL_GL_SwapWindow(window);
 }
 
 void GLContext::draw() {
