@@ -15,30 +15,15 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
     projectionMatrix.loadOrthographic(width, height);
     ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 42);
 
-    // remove the fps cap
     SDL_GL_SetSwapInterval(0);
 
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    // Load an image
-    /* SDL_Surface *surface = IMG_Load("../assets/images/vim.png");
-     * glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
-     *             0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
-     * SDL_FreeSurface(surface);
-     */
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 GLContext::~GLContext() {
     TTF_CloseFont(ttfFont);
-    glDeleteTextures(1, &textureID);
     SDL_GL_DeleteContext(context);
 }
 
@@ -90,8 +75,8 @@ void GLContext::draw() {
     glTexCoord2d(1, 0);
     glVertex3d(1230, 50, 0);
     glTexCoord2d(1, 1);
-    glVertex3d(1230, 150, 0);
+    glVertex3d(1230, 670, 0);
     glTexCoord2d(0, 1);
-    glVertex3d(50, 150, 0);
+    glVertex3d(50, 670, 0);
     glEnd();
 }

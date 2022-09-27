@@ -38,6 +38,7 @@ add_executable(game
         src/GLContext.cpp
         src/Application.cpp
         src/Singleton.cpp
-        src/Chronometer.cpp)
+        src/Chronometer.cpp
+        src/Texture.cpp)
 
 target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARY} ${OPENGL_LIBRARIES} math_library)

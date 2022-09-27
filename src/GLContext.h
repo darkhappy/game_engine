@@ -10,6 +10,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "Window.h"
 #include "Matrix44d.h"
+#include "Texture.h"
 
 /// @class GLContext
 /// @brief Represents a window using OpenGL

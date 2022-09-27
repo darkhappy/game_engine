@@ -16,6 +16,15 @@ Application::~Application() = default;
 void Application::start() {
     bool running = true;
     fpsChronometer.startChronometer();
+
+    Chronometer textureChronometer;
+    textureChronometer.startChronometer();
+
+    Texture *brick = new Texture("../assets/images/brick.png");
+    Texture *vim = new Texture("../assets/images/vim.png");
+
+    vim->bind();
+
     while (running) {
         while (Event::poll()) {
             switch (Event::getEventType()) {
@@ -27,6 +36,15 @@ void Application::start() {
             }
         }
 
+        if (textureChronometer.getElapsedTime() >= 5) {
+            vim->bind();
+        }
+
+        if (textureChronometer.getElapsedTime() >= 10) {
+            brick->bind();
+            textureChronometer.startChronometer();
+        }
+
         context.clear();
         context.draw();
         context.update();
@@ -34,7 +52,7 @@ void Application::start() {
         // Handle FPS
         fps++;
         if (fpsChronometer.getElapsedTime() >= 1) {
-            context.showFPS(fps);
+            // context.showFPS(fps);
             fps = 0;
             fpsChronometer.startChronometer();
         }
