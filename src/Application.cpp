@@ -3,6 +3,7 @@
 /// @author Jean-Philippe (me\@darkh.app)
 
 #include "Application.h"
+#include "Screensaver.h"
 
 Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -20,10 +21,19 @@ void Application::start() {
     Chronometer textureChronometer;
     textureChronometer.startChronometer();
 
-    Texture *brick = new Texture("../assets/images/brick.png");
-    Texture *vim = new Texture("../assets/images/vim.png");
+    Texture louis("../assets/images/brick.png");
+    Texture vim("../assets/images/vim.png");
 
-    vim->bind();
+    Screensaver screensaver(&context, &louis, rand() % 200, rand() % 200, 400, 400, 0.5, 0.5);
+
+    std::vector<Screensaver> screensavers;
+    for (int i = 0; i < 50; i++) {
+        double height = rand() % 100 + 100;
+        screensavers.emplace_back(&context, &vim, rand() % 800, rand() % 600, height, height,
+                                  (rand() % 100) / 10.0, (rand() % 100) / 10.0);
+    }
+
+    int frames = 0;
 
     while (running) {
         while (Event::poll()) {
@@ -36,24 +46,23 @@ void Application::start() {
             }
         }
 
-        if (textureChronometer.getElapsedTime() >= 5) {
-            vim->bind();
-        }
-
-        if (textureChronometer.getElapsedTime() >= 10) {
-            brick->bind();
-            textureChronometer.startChronometer();
-        }
-
         context.clear();
         context.draw();
+
+        for (auto &screen: screensavers) {
+            screen.draw();
+        }
+
+        screensaver.draw();
+        context.showFPS(fps);
+
         context.update();
 
         // Handle FPS
-        fps++;
+        frames++;
         if (fpsChronometer.getElapsedTime() >= 1) {
-            // context.showFPS(fps);
-            fps = 0;
+            fps = frames / fpsChronometer.getElapsedTime();
+                    frames = 0;
             fpsChronometer.startChronometer();
         }
     }

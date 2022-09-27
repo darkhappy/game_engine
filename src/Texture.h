@@ -20,7 +20,7 @@ public:
 
     static void unbind();
 
-    [[nodiscard]] unsigned int getTextureID() const;
+    [[nodiscard]] GLuint getTextureID() const;
 };
 
 #endif //GAME_ENGINE_TEXTURE_H

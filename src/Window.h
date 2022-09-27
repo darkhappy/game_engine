@@ -13,6 +13,9 @@ class Window {
 protected:
     SDL_Window *window; ///< The window
 
+    int width; ///< The width of the window
+    int height; ///< The height of the window
+
     /// @brief Creates a window
     /// @param title The title of the window, by default "Window"
     /// @param windowX The x position of the window, by default SDL_WINDOWPOS_CENTERED
@@ -34,6 +37,14 @@ public:
 
     /// @brief Updates the window
     virtual void update() = 0;
+
+    /// @brief Gets the width of the window
+    /// @return The width of the window
+    int getWidth() const;
+
+    /// @brief Gets the height of the window
+    /// @return The height of the window
+    int getHeight() const;
 };
 
 

@@ -18,8 +18,8 @@ class GLContext : public Window {
 private:
     SDL_GLContext context; ///< The context
     Matrix44d projectionMatrix; ///< The projection matrix
-    unsigned int textureID; ///< The texture ID
     TTF_Font* ttfFont; ///< The font
+
 public:
     /// @brief Creates a window
     /// @param title The title of the window, by default "OpenGL Window"
@@ -46,6 +46,11 @@ public:
     void draw();
 
     void showFPS(int fps);
+
+    static void
+    drawSquare(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
+               double bottomLeftY,
+               double bottomRightX, double bottomRightY);
 };
 
 

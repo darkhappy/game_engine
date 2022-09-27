@@ -9,7 +9,7 @@ Texture::Texture(const char *path) {
 
     // Set the texture ID to the texture ID
     glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    bind();
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
@@ -18,9 +18,7 @@ Texture::Texture(const char *path) {
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // Unbind the texture
-    glBindTexture(GL_TEXTURE_2D, 0);
+    unbind();
 }
 
 Texture::~Texture() {
@@ -31,11 +29,11 @@ void Texture::bind() const {
     glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-unsigned int Texture::getTextureID() const {
-    return textureID;
-}
-
 void Texture::unbind() {
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+GLuint Texture::getTextureID() const {
+    return textureID;
 }
 

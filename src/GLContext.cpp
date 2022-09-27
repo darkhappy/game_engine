@@ -15,8 +15,6 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
     projectionMatrix.loadOrthographic(width, height);
     ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 42);
 
-    SDL_GL_SetSwapInterval(0);
-
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -49,16 +47,25 @@ void GLContext::showFPS(int fps) {
     }
     surface->pitch = realPitch;
 
+    // Create texture
+    unsigned int texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
 #ifdef __APPLE__
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
-                 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
 #else
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
-                 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 #endif
 
-    SDL_FreeSurface(surface);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    // Draw texture
+    GLContext::drawSquare(0, 0, surface->w, 0, 0, surface->h, surface->w, surface->h);
+
+
+    SDL_FreeSurface(surface);
 }
 
 void GLContext::draw() {
@@ -66,17 +73,20 @@ void GLContext::draw() {
     glLoadIdentity();
     glMultMatrixd(projectionMatrix.elements);
 
+}
+
+void GLContext::drawSquare(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
+                           double bottomLeftY, double bottomRightX, double bottomRightY) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-
     glBegin(GL_QUADS);
     glTexCoord2d(0, 0);
-    glVertex3d(50, 50, 0);
+    glVertex2d(topLeftX, topLeftY);
     glTexCoord2d(1, 0);
-    glVertex3d(1230, 50, 0);
+    glVertex2d(topRightX, topRightY);
     glTexCoord2d(1, 1);
-    glVertex3d(1230, 670, 0);
+    glVertex2d(bottomRightX, bottomRightY);
     glTexCoord2d(0, 1);
-    glVertex3d(50, 670, 0);
+    glVertex2d(bottomLeftX, bottomLeftY);
     glEnd();
 }
