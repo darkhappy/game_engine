@@ -1,6 +1,7 @@
 # Atelier 1
 
-La librairie graphique SDL est entièrement implémentée en langage C, donc totalement dépourvue du paradigme orienté objet.
+La librairie graphique SDL est entièrement implémentée en langage C, donc totalement dépourvue du paradigme orienté
+objet.
 
 ## Travail à réaliser
 
@@ -25,8 +26,8 @@ Pour le moment, le cadriciel doit seulement permettre de:
 
 ## Barème
 
-|Évaluation    |Pondération|
-|--------------|-----------|
-|Conception    |/ 4        |
-|Implémentation|/ 6        |
-|              |**/ 10**   |
+| Évaluation     | Pondération |
+|----------------|-------------|
+| Conception     | / 4         |
+| Implémentation | / 6         |
+|                | **/ 10**    |
