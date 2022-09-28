@@ -48,9 +48,9 @@ public:
     void showFPS(int fps);
 
     static void
-    drawSquare(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
-               double bottomLeftY,
-               double bottomRightX, double bottomRightY);
+    drawRectangle(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
+                  double bottomLeftY,
+                  double bottomRightX, double bottomRightY);
 };
 
 

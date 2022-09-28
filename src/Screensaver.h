@@ -48,6 +48,7 @@ public:
 
     void swapTexture();
 
+    void update();
 };
 
 #endif //GAME_ENGINE_SCREENSAVER_H

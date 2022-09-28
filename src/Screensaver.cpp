@@ -26,10 +26,20 @@ Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, double
 }
 
 Screensaver::Screensaver(GLContext *context, Texture *texture, double x, double y, double width, double height,
-                         double verticalSpeed, double horizontalSpeed) : Screensaver(context,
-                                                                                     new vector<Texture *>{texture}, x,
-                                                                                     y, width, height, verticalSpeed,
-                                                                                     horizontalSpeed) {}
+                         double verticalSpeed, double horizontalSpeed) {
+    this->x = x;
+    this->y = y;
+    this->width = width;
+    this->height = height;
+    this->verticalSpeed = verticalSpeed;
+    this->horizontalSpeed = horizontalSpeed;
+    this->context = context;
+    this->current = texture;
+    this->textures = nullptr;
+
+    verticalDirection = DOWN;
+    horizontalDirection = RIGHT;
+}
 
 void Screensaver::swapHorizontalDirection() {
     if (horizontalDirection == LEFT) {
@@ -52,6 +62,10 @@ void Screensaver::swapVerticalDirection() {
 }
 
 void Screensaver::swapTexture() {
+    if (textures == nullptr || textures->empty() || textures->size() == 1) {
+        return;
+    }
+
     // Get the index of the current texture
     int index = 0;
 
@@ -72,8 +86,11 @@ void Screensaver::swapTexture() {
 
 void Screensaver::draw() {
     current->bind();
-    GLContext::drawSquare(x, y, x + width, y, x, y + height, x + width, y + height);
+    GLContext::drawRectangle(x, y, x + width, y, x, y + height, x + width, y + height);
+    Texture::unbind();
+}
 
+void Screensaver::update() {
     // Detect vertical collisions
     if (y <= 0) {
         swapVerticalDirection();
@@ -103,6 +120,4 @@ void Screensaver::draw() {
     }
 
     x += horizontalSpeed;
-
-    Texture::unbind();
 }

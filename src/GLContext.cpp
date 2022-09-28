@@ -13,7 +13,9 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
 
     context = SDL_GL_CreateContext(window);
     projectionMatrix.loadOrthographic(width, height);
-    ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 42);
+    ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 24);
+
+    SDL_GL_SetSwapInterval(0);
 
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
@@ -62,9 +64,10 @@ void GLContext::showFPS(int fps) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     // Draw texture
-    GLContext::drawSquare(0, 0, surface->w, 0, 0, surface->h, surface->w, surface->h);
+    GLContext::drawRectangle(0, 0, surface->w, 0, 0, surface->h, surface->w, surface->h);
 
-
+    // Delete texture
+    glDeleteTextures(1, &texture);
     SDL_FreeSurface(surface);
 }
 
@@ -75,8 +78,8 @@ void GLContext::draw() {
 
 }
 
-void GLContext::drawSquare(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
-                           double bottomLeftY, double bottomRightX, double bottomRightY) {
+void GLContext::drawRectangle(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
+                              double bottomLeftY, double bottomRightX, double bottomRightY) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glBegin(GL_QUADS);
