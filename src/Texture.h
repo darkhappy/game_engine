@@ -9,8 +9,9 @@
 #include <SDL2/SDL_opengl.h>
 
 class Texture {
-private:
-    GLuint textureID; ///< The texture ID
+///< The texture ID
+protected:
+    GLuint textureID{};
 public:
     explicit Texture(const char *path);
 

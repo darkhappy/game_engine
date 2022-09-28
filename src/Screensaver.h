@@ -7,6 +7,7 @@
 
 
 #include "Texture.h"
+#include "TTFont.h"
 #include <vector>
 #include "GLContext.h"
 
@@ -24,6 +25,7 @@ private:
     GLContext *context; ///< The context
     vector<Texture*> *textures; ///< The textures
     Texture *current; ///< The current texture
+    TTFont *font; ///< The font
     double x; ///< The x position of the screensaver
     double y; ///< The y position of the screensaver
     double width; ///< The width of the screensaver
@@ -34,11 +36,11 @@ private:
     Direction horizontalDirection; ///< The horizontal direction
 
 public:
-    Screensaver(GLContext *context, vector<Texture*> *textures, double x = 0, double y = 0, double width = 50,
+    Screensaver(GLContext *context, vector<Texture*> *textures, TTFont *font = nullptr, double x = 0, double y = 0, double width = 50,
                 double height = 50, double verticalSpeed = 1, double horizontalSpeed = 1);
 
-    Screensaver(GLContext *context, Texture *texture, double x = 0, double y = 0, double width = 50,
-                double height = 50, double verticalSpeed = 1, double horizontalSpeed = 1);
+    Screensaver(GLContext *context, Texture *texture, TTFont *font = nullptr, double x = 0, double y = 0, double width = 50, double height = 50,
+                double verticalSpeed = 1, double horizontalSpeed = 1);
 
     void draw();
 

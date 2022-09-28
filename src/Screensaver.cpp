@@ -4,8 +4,7 @@
 
 #include "Screensaver.h"
 
-
-Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, double x, double y, double width,
+Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, TTFont *font, double x, double y, double width,
                          double height, double verticalSpeed, double horizontalSpeed) {
     if (textures->empty()) {
         throw std::invalid_argument("The textures vector is empty");
@@ -20,12 +19,13 @@ Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, double
     this->context = context;
     this->textures = textures;
     this->current = textures->at(0);
+    this->font = font;
 
     verticalDirection = DOWN;
     horizontalDirection = RIGHT;
 }
 
-Screensaver::Screensaver(GLContext *context, Texture *texture, double x, double y, double width, double height,
+Screensaver::Screensaver(GLContext *context, Texture *texture, TTFont *font, double x, double y, double width, double height,
                          double verticalSpeed, double horizontalSpeed) {
     this->x = x;
     this->y = y;
@@ -36,6 +36,7 @@ Screensaver::Screensaver(GLContext *context, Texture *texture, double x, double 
     this->context = context;
     this->current = texture;
     this->textures = nullptr;
+    this->font = font;
 
     verticalDirection = DOWN;
     horizontalDirection = RIGHT;
@@ -88,6 +89,12 @@ void Screensaver::draw() {
     current->bind();
     GLContext::drawRectangle(x, y, x + width, y, x, y + height, x + width, y + height);
     Texture::unbind();
+
+    if (font != nullptr) {
+        font->bind();
+        GLContext::drawRectangle(x, y - font->getHeight(), x + font->getWidth(), y - font->getHeight(), x, y, x + font->getWidth(), y);
+        TTFont::unbind();
+    }
 }
 
 void Screensaver::update() {
