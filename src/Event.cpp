@@ -13,3 +13,15 @@ int Event::poll() {
 unsigned int Event::getEventType() {
     return event.type;
 }
+
+int Event::getMouseButton() {
+    return event.button.button;
+}
+
+int Event::getMouseX() {
+    return event.button.x;
+}
+
+int Event::getMouseY() {
+    return event.button.y;
+}

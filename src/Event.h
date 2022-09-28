@@ -21,6 +21,12 @@ public:
     /// @brief Gets the event type
     /// @return The event type
     static unsigned int getEventType();
+
+    static int getMouseButton();
+
+    static int getMouseX();
+
+    static int getMouseY();
 };
 
 #endif //SDL_LIBRARY_EVENT_H

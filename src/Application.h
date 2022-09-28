@@ -18,7 +18,7 @@
 class Application : public Singleton<Application> {
 private:
     GLContext context; ///< The window that the app is running, see Window for more information
-    int fps; ///< The fps of the application
+    int fps{}; ///< The fps of the application
     Chronometer fpsChronometer; ///< The chronometer used to calculate the fps
 public:
 
