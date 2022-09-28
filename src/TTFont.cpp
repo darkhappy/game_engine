@@ -35,7 +35,7 @@ void TTFont::load() {
 
 #ifdef __APPLE__
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
-                 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
+                 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
 #else
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface.w, surface.h,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, surface.pixels);

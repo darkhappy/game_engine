@@ -5,6 +5,8 @@
 #include "Application.h"
 #include "Screensaver.h"
 
+#define ASSETS_PATH "../assets"
+
 Application::Application() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
@@ -17,21 +19,22 @@ Application::~Application() = default;
 void Application::start() {
     bool running = true;
 
-    Texture louis("../assets/images/brick.png");
-    Texture vim("../assets/images/vim.png");
-    TTFont screenFont("../assets/fonts/comic.ttf", 24, "vim is BASED af");
+    Texture louis(ASSETS_PATH"/images/brick.png");
+    Texture vim(ASSETS_PATH"/images/vim.png");
+    TTFont screenFont(ASSETS_PATH"/fonts/meslo.ttf", 20, "vim my beloved", {150, 255, 150, 255});
+    TTFont louisFont(ASSETS_PATH"/fonts/comic.ttf", 96, "DID I ASK", {255, 150, 150, 255});
 
-    Screensaver screensaver(&context, &louis, nullptr, rand() % 200, rand() % 200, 400, 400, 0.5, 0.5);
+    Screensaver screensaver(&context, &louis, &louisFont, rand() % 200, rand() % 200, 400, 400, 0.5, 0.5);
 
     std::vector<Screensaver> screensavers;
     for (int i = 0; i < 10; i++) {
         double height = rand() % 100 + 100;
         screensavers.emplace_back(&context, &vim, &screenFont, rand() % 800, rand() % 600, height, height,
-                                    (rand() % 100) / 50.0, (rand() % 100) / 50.0);
+                                  (rand() % 100) / 50.0, (rand() % 100) / 50.0);
     }
 
     int frames = 0;
-    TTFont framesCounter("../assets/fonts/comic.ttf", 24, "fps: 0");
+    TTFont framesCounter(ASSETS_PATH"/fonts/meslo.ttf", 24, "fps: 0", {150, 150, 255, 255});
 
     Chronometer tick;
     tick.startChronometer();
@@ -53,7 +56,7 @@ void Application::start() {
         double delta = tick.getElapsedTime();
 
         if (delta >= 1.0 / 120.0) {
-            for (auto &screen : screensavers) {
+            for (auto &screen: screensavers) {
                 screen.update();
             }
             screensaver.update();
@@ -67,12 +70,7 @@ void Application::start() {
         for (auto &screen: screensavers)
             screen.draw();
         screensaver.draw();
-
-        int i = 0;
-        while (i * framesCounter.getHeight() < context.getHeight()) {
-            framesCounter.draw(0, framesCounter.getHeight() * i);
-            i++;
-        }
+        framesCounter.draw(10, 10);
         context.update();
 
         // Handle FPS
