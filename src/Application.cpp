@@ -23,7 +23,7 @@ void Application::start() {
     Texture gopher(ASSETS"/images/gopher.png");
     TTFont screenFont(ASSETS"/fonts/meslo.ttf", 20, "vim my beloved", {150, 255, 150, 255});
     TTFont gopherFont(ASSETS"/fonts/meslo.ttf", 20, "gopher", {150, 150, 255, 255});
-    TTFont louisFont(ASSETS"/fonts/comic.ttf", 96, "DID I ASK", {255, 150, 150, 255});
+    TTFont louisFont(ASSETS"/fonts/comic.ttf", 96, "DID I ASK NIG-", {255, 150, 150, 255});
     TTFont instructionsFont(ASSETS"/fonts/meslo.ttf", 20, "Left click: gopher", {255, 255, 255, 255});
     TTFont instructionsFont2(ASSETS"/fonts/meslo.ttf", 20, "Right click: clear gopher", {255, 255, 255, 255});
     TTFont gopherCountFont(ASSETS"/fonts/meslo.ttf", 20, "Gopher count: 0", {255, 255, 255, 255});
@@ -58,8 +58,8 @@ void Application::start() {
                     // position of the mouse
                     if (Event::getMouseButton() == SDL_BUTTON_LEFT) {
                         gophersavers.emplace_back(&context, &gopher, &gopherFont, Event::getMouseX(),
-                                                  Event::getMouseY(), 100, 100, rand() % 100 / 50.0,
-                                                  rand() % 100 / 50.0);
+                                                  Event::getMouseY(), 100, 100, rand() % 100 / 25.0,
+                                                  rand() % 100 / 25.0);
                         gopherCountFont.setText("Gopher count: " + std::to_string(gophersavers.size()));
                     }
 
@@ -95,13 +95,10 @@ void Application::start() {
         context.clear();
 
         context.draw();
-
-        for (auto &screen: vimsavers)
-            screen.draw();
-
         for (auto &screen: gophersavers)
             screen.draw();
-
+        for (auto &screen: vimsavers)
+            screen.draw();
 
         screensaver.draw();
         framesCounter.draw(10, 10);
