@@ -7,22 +7,22 @@
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include "GLContext.h"
 #include "Texture.h"
 
 class TTFont : public Texture {
 private:
     TTF_Font *font; ///< The font
-    SDL_Color color; ///< The color
+    SDL_Color color{}; ///< The color
     std::string text; ///< The text
-    int size; ///< The size
+    std::string path; ///< Path of the font
 
-    int width; ///< The width
-    int height; ///< The height
+    int size{}; ///< The size
+    int width{}; ///< The width
+    int height{}; ///< The height
 
     void load();
 public:
-    TTFont(const char *path, int size, const std::string &text, SDL_Color color = {255, 255, 255, 255});
+    TTFont(const char *path, int size, const std::string &text = " ", SDL_Color color = {255, 255, 255, 255});
 
     ~TTFont();
 
@@ -32,11 +32,13 @@ public:
 
     void setSize(int newSize);
 
+    [[nodiscard]] SDL_Color getColour() const;
+
+    [[nodiscard]] int getSize() const;
+
     [[nodiscard]] int getWidth() const;
 
     [[nodiscard]] int getHeight() const;
-
-    void draw(int x, int y);
 };
 
 

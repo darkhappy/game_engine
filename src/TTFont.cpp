@@ -7,6 +7,8 @@
 TTFont::TTFont(const char *path, int size, const std::string &text, SDL_Color color) : Texture(nullptr) {
     this->color = color;
     this->text = text;
+    this->size = size;
+    this->path = path;
     font = TTF_OpenFont(path, size);
 
     load();
@@ -17,7 +19,7 @@ TTFont::~TTFont() {
 }
 
 void TTFont::load() {
-    SDL_Surface *surface = TTF_RenderText_Blended(font, text.c_str(), color);
+    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
     // Fix the text being weirdly rendered
     unsigned int realPitch = surface->w * surface->format->BytesPerPixel;
     auto *src = (unsigned char *) surface->pixels;
@@ -62,7 +64,8 @@ void TTFont::setColor(SDL_Color color) {
 
 void TTFont::setSize(int newSize) {
     TTF_CloseFont(font);
-    font = TTF_OpenFont("assets/fonts/arial.ttf", newSize);
+    this->size = newSize;
+    font = TTF_OpenFont(path.c_str(), newSize);
     load();
 }
 
@@ -74,8 +77,10 @@ int TTFont::getHeight() const {
     return height;
 }
 
-void TTFont::draw(int x, int y) {
-    bind();
-    GLContext::drawRectangle(x, y, x + width, y, x, y + height, x + width, y + height);
-    unbind();
+int TTFont::getSize() const {
+    return size;
+}
+
+SDL_Color TTFont::getColour() const {
+    return color;
 }

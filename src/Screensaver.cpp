@@ -4,12 +4,8 @@
 
 #include "Screensaver.h"
 
-Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, TTFont *font, double x, double y, double width,
-                         double height, double verticalSpeed, double horizontalSpeed) {
-    if (textures->empty()) {
-        throw std::invalid_argument("The textures vector is empty");
-    }
-
+Screensaver::Screensaver(GLContext *context, Texture *texture, TTFont *font, double x, double y, double width,
+                         double height, double horizontalSpeed, double verticalSpeed) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -17,113 +13,53 @@ Screensaver::Screensaver(GLContext *context, vector<Texture *> *textures, TTFont
     this->verticalSpeed = verticalSpeed;
     this->horizontalSpeed = horizontalSpeed;
     this->context = context;
-    this->textures = textures;
-    this->current = textures->at(0);
+    this->texture = texture;
     this->font = font;
-
-    verticalDirection = DOWN;
-    horizontalDirection = RIGHT;
-}
-
-Screensaver::Screensaver(GLContext *context, Texture *texture, TTFont *font, double x, double y, double width, double height,
-                         double verticalSpeed, double horizontalSpeed) {
-    this->x = x;
-    this->y = y;
-    this->width = width;
-    this->height = height;
-    this->verticalSpeed = verticalSpeed;
-    this->horizontalSpeed = horizontalSpeed;
-    this->context = context;
-    this->current = texture;
-    this->textures = nullptr;
-    this->font = font;
-
-    verticalDirection = DOWN;
-    horizontalDirection = RIGHT;
 }
 
 void Screensaver::swapHorizontalDirection() {
-    if (horizontalDirection == LEFT) {
-        horizontalDirection = RIGHT;
-    } else {
-        horizontalDirection = LEFT;
-    }
-
     horizontalSpeed *= -1;
 }
 
 void Screensaver::swapVerticalDirection() {
-    if (verticalDirection == UP) {
-        verticalDirection = DOWN;
-    } else {
-        verticalDirection = UP;
-    }
-
     verticalSpeed *= -1;
 }
 
-void Screensaver::swapTexture() {
-    if (textures == nullptr || textures->empty() || textures->size() == 1) {
-        return;
-    }
-
-    // Get the index of the current texture
-    int index = 0;
-
-    for (int i = 0; i < textures->size(); i++) {
-        if (textures->at(i)->getTextureID() == current->getTextureID()) {
-            index = i;
-            break;
-        }
-    }
-
-    // Swap the texture
-    if (index == textures->size() - 1) {
-        current = textures->at(0);
-    } else {
-        current = textures->at(index + 1);
-    }
-}
-
 void Screensaver::draw() {
-    current->bind();
-    GLContext::drawRectangle(x, y, x + width, y, x, y + height, x + width, y + height);
+    texture->bind();
+    GLContext::drawRectangle(Vector3d(x, y), Vector3d(width, height));
     Texture::unbind();
 
     if (font != nullptr) {
-        font->bind();
-        GLContext::drawRectangle(x, y - font->getHeight(), x + font->getWidth(), y - font->getHeight(), x, y, x + font->getWidth(), y);
-        TTFont::unbind();
+        GLContext::drawFont(*font, Vector3d(x, y - font->getHeight()));
     }
 }
 
 void Screensaver::update() {
     // Detect vertical collisions
     if (y <= 0) {
-        swapVerticalDirection();
-        swapTexture();
-
         y = 0;
-    } else if (y + height >= context->getHeight()) {
         swapVerticalDirection();
-        swapTexture();
-
+    } else if (y + height >= context->getHeight()) {
         y = context->getHeight() - height;
+        swapVerticalDirection();
+    } else if (y - font->getHeight() <= 0) {
+        y = font->getHeight();
+        swapVerticalDirection();
     }
 
     y += verticalSpeed;
 
     // Detect horizontal collisions
     if (x <= 0) {
-        swapHorizontalDirection();
-        swapTexture();
-
         x = 0;
-    } else if (x + width >= context->getWidth()) {
         swapHorizontalDirection();
-        swapTexture();
-
+    } else if (x + font->getWidth() >= context->getWidth()) {
+        x = context->getWidth() - font->getWidth();
+        swapHorizontalDirection();
+    } else if (x + width >= context->getWidth()) {
         x = context->getWidth() - width;
+        swapHorizontalDirection();
     }
 
     x += horizontalSpeed;

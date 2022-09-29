@@ -12,6 +12,7 @@
 #include "Matrix44d.h"
 #include "Texture.h"
 #include "Window.h"
+#include "TTFont.h"
 
 using std::to_string;
 
@@ -49,10 +50,9 @@ public:
     // @brief Draws something
     void draw();
 
-    static void
-    drawRectangle(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
-                  double bottomLeftY,
-                  double bottomRightX, double bottomRightY);
+    static void drawRectangle(Vector3d position, Vector3d size);
+
+    static void drawFont(const TTFont &font, Vector3d position);
 };
 
 
