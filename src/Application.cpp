@@ -3,7 +3,6 @@
 /// @author Jean-Philippe (me\@darkh.app)
 
 #include "Application.h"
-#include "Screensaver.h"
 
 #define ASSETS "../assets"
 
@@ -23,7 +22,7 @@ void Application::start() {
     Texture gopher(ASSETS"/images/gopher.png");
     TTFont screenFont(ASSETS"/fonts/meslo.ttf", 20, "vim my beloved", {150, 255, 150, 255});
     TTFont gopherFont(ASSETS"/fonts/meslo.ttf", 20, "gopher", {150, 150, 255, 255});
-    TTFont louisFont(ASSETS"/fonts/comic.ttf", 96, "DID I ASK NIG-", {255, 150, 150, 255});
+    TTFont louisFont(ASSETS"/fonts/comic.ttf", 96, "DID I ASK", {255, 150, 150, 255});
     TTFont instructionsFont(ASSETS"/fonts/meslo.ttf", 20, "Left click: gopher", {255, 255, 255, 255});
     TTFont instructionsFont2(ASSETS"/fonts/meslo.ttf", 20, "Right click: clear gopher", {255, 255, 255, 255});
     TTFont gopherCountFont(ASSETS"/fonts/meslo.ttf", 20, "Gopher count: 0", {255, 255, 255, 255});

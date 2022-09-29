@@ -8,10 +8,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include "GLContext.h"
-#include "Singleton.h"
-#include "Event.h"
 #include "Chronometer.h"
+#include "Event.h"
+#include "GLContext.h"
+#include "Screensaver.h"
+#include "Singleton.h"
 
 /// @class Application
 /// @brief Represents an application

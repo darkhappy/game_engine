@@ -6,10 +6,10 @@
 #define GAME_ENGINE_SCREENSAVER_H
 
 
-#include "Texture.h"
-#include "TTFont.h"
 #include <vector>
 #include "GLContext.h"
+#include "Texture.h"
+#include "TTFont.h"
 
 using std::vector;
 

@@ -41,6 +41,6 @@ add_executable(game
         src/Chronometer.cpp
         src/Texture.cpp
         src/Screensaver.cpp
-        src/TTFont.cpp)
+        src/TTFont.cpp src/Observable.cpp src/Observable.h src/Observer.cpp)
 
 target_link_libraries(game PUBLIC ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARY} ${OPENGL_LIBRARIES} math_library)

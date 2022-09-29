@@ -2,10 +2,7 @@
 /// @brief Contains the implementation of the GLContext class in GLContext.h
 /// @author Jean-Philippe (me\@darkh.app)
 
-#include <string>
 #include "GLContext.h"
-
-using std::to_string;
 
 GLContext::GLContext(const char *title, int windowX, int windowY, int width, int height, unsigned int flags)
         : Window(title, windowX, windowY, width, height, flags | SDL_WINDOW_OPENGL) {
@@ -35,47 +32,10 @@ void GLContext::update() {
     SDL_GL_SwapWindow(window);
 }
 
-void GLContext::showFPS(int fps) {
-    // Load text
-    SDL_Surface *surface = TTF_RenderText_Blended(ttfFont, (to_string(fps) + " fps lol").c_str(), {255, 255, 255, 255});
-    // Fix the text being wacky
-    unsigned int realPitch = surface->w * surface->format->BytesPerPixel;
-    auto *src = (unsigned char *) surface->pixels;
-    unsigned char *dst = src;
-    for (size_t y = 0; y < surface->h; y++) {
-        memmove(dst, src, realPitch);
-        dst += realPitch;
-        src += surface->pitch;
-    }
-    surface->pitch = realPitch;
-
-    // Create texture
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-#ifdef __APPLE__
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
-#else
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
-#endif
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // Draw texture
-    GLContext::drawRectangle(0, 0, surface->w, 0, 0, surface->h, surface->w, surface->h);
-
-    // Delete texture
-    glDeleteTextures(1, &texture);
-    SDL_FreeSurface(surface);
-}
-
 void GLContext::draw() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glMultMatrixd(projectionMatrix.elements);
-
 }
 
 void GLContext::drawRectangle(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,

@@ -8,9 +8,13 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL_ttf.h>
-#include "Window.h"
+#include <string>
 #include "Matrix44d.h"
 #include "Texture.h"
+#include "Window.h"
+
+using std::to_string;
+
 
 /// @class GLContext
 /// @brief Represents a window using OpenGL
@@ -44,8 +48,6 @@ public:
 
     // @brief Draws something
     void draw();
-
-    void showFPS(int fps);
 
     static void
     drawRectangle(double topLeftX, double topLeftY, double topRightX, double topRightY, double bottomLeftX,
