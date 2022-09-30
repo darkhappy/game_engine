@@ -5,7 +5,6 @@
 #ifndef GAME_ENGINE_TEXTURE_H
 #define GAME_ENGINE_TEXTURE_H
 
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_opengl.h>
 
 class Texture {

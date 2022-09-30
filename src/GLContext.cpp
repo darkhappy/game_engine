@@ -10,7 +10,6 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
 
     context = SDL_GL_CreateContext(window);
     projectionMatrix.loadOrthographic(width, height);
-    ttfFont = TTF_OpenFont("../assets/fonts/comic.ttf", 24);
 
     SDL_GL_SetSwapInterval(0);
 
@@ -20,7 +19,6 @@ GLContext::GLContext(const char *title, int windowX, int windowY, int width, int
 }
 
 GLContext::~GLContext() {
-    TTF_CloseFont(ttfFont);
     SDL_GL_DeleteContext(context);
 }
 

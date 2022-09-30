@@ -5,25 +5,18 @@
 #ifndef SDL_LIBRARY_GLCONTEXT_H
 #define SDL_LIBRARY_GLCONTEXT_H
 
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_ttf.h>
-#include <string>
 #include "Matrix44d.h"
-#include "Texture.h"
-#include "Window.h"
 #include "TTFont.h"
-
-using std::to_string;
-
+#include "Window.h"
 
 /// @class GLContext
+
 /// @brief Represents a window using OpenGL
-class GLContext : public Window {
+class GLContext : public Window
+{
 private:
-    SDL_GLContext context; ///< The context
+    SDL_GLContext context;      ///< The context
     Matrix44d projectionMatrix; ///< The projection matrix
-    TTF_Font* ttfFont; ///< The font
 
 public:
     /// @brief Creates a window
@@ -55,5 +48,4 @@ public:
     static void drawFont(const TTFont &font, Vector3d position);
 };
 
-
-#endif //SDL_LIBRARY_GLCONTEXT_H
+#endif // SDL_LIBRARY_GLCONTEXT_H

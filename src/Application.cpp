@@ -4,6 +4,14 @@
 
 #include "Application.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <vector>
+
+#include "Event.h"
+#include "Screensaver.h"
+
 #define ASSETS "../assets"
 
 Application::Application() {
@@ -16,21 +24,19 @@ Application::~Application() = default;
 
 void Application::start() {
     bool running = true;
+    int frames = 0;
 
-    std::srand(std::time(nullptr)); // use current time as seed for random generator
+    std::srand(std::time(nullptr));
 
-    Texture gopher(ASSETS"/images/gopher.png");
-    TTFont gopherFont(ASSETS"/fonts/meslo.ttf", 20, "gopher gopher gopher gopher", {150, 150, 255, 255});
-    TTFont instructionsFont(ASSETS"/fonts/meslo.ttf", 20, "Left click: gopher", {255, 255, 255, 255});
-    TTFont instructionsFont2(ASSETS"/fonts/meslo.ttf", 20, "Right click: clear gopher", {255, 255, 255, 255});
-    TTFont gopherCountFont(ASSETS"/fonts/meslo.ttf", 20, "Gopher count: 0", {255, 255, 255, 255});
-
+    Texture gopher(ASSETS "/images/gopher.png");
+    TTFont gopherFont(ASSETS "/fonts/meslo.ttf", 20, "gopher gopher gopher gopher", {150, 150, 255, 255});
+    TTFont instructionsFont(ASSETS "/fonts/meslo.ttf", 20, "Left click: gopher", {255, 255, 255, 255});
+    TTFont instructionsFont2(ASSETS "/fonts/meslo.ttf", 20, "Right click: clear gopher", {255, 255, 255, 255});
+    TTFont gopherCountFont(ASSETS "/fonts/meslo.ttf", 20, "Gopher count: 0", {255, 255, 255, 255});
+    TTFont framesCounter(ASSETS "/fonts/meslo.ttf", 24, "fps: 0");
+    Chronometer tick;
     std::vector<Screensaver> gophersavers;
 
-    int frames = 0;
-    TTFont framesCounter(ASSETS"/fonts/meslo.ttf", 24, "fps: 0");
-
-    Chronometer tick;
     tick.startChronometer();
     fpsChronometer.startChronometer();
 
@@ -46,12 +52,15 @@ void Application::start() {
                     // position of the mouse
                     if (Event::getMouseButton() == SDL_BUTTON_LEFT) {
 
-                        int forward = rand() % 100000 > 50000 ? 1 : -1;
-                        int up = rand() % 100000 > 50000 ? 1 : -1;
+                        int amount = rand() % 500 + 50;
+                        for (int i = 0; i < amount; i++) {
+                            int forward = rand() % 100000 > 50000 ? 1 : -1;
+                            int up = rand() % 100000 > 50000 ? 1 : -1;
 
-                        gophersavers.emplace_back(&context, &gopher, &gopherFont, Event::getMouseX(),
-                                                  Event::getMouseY(), 100, 100, rand() % 100 / 25.0 * forward,
-                                                  rand() % 100 / 25.0 * up);
+                            gophersavers.emplace_back(&context, &gopher, &gopherFont, Event::getMouseX(),
+                                                      Event::getMouseY(), 100, 100, rand() % 100 / 25.0 * forward,
+                                                      rand() % 100 / 25.0 * up);
+                        }
                         gopherCountFont.setText("Gopher count: " + std::to_string(gophersavers.size()));
                     }
 
@@ -88,6 +97,8 @@ void Application::start() {
         GLContext::drawFont(instructionsFont, Vector3d(10, 80));
         GLContext::drawFont(instructionsFont2, Vector3d(10, 105));
         GLContext::drawFont(gopherCountFont, Vector3d(10, 35));
+
+        GLContext::drawFont(gopherFont, Vector3d(10, 60));
 
         context.update();
 

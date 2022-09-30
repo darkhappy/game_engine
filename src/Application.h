@@ -5,32 +5,26 @@
 #ifndef SDL_LIBRARY_APPLICATION_H
 #define SDL_LIBRARY_APPLICATION_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include "Chronometer.h"
-#include "Event.h"
 #include "GLContext.h"
-#include "Screensaver.h"
 #include "Singleton.h"
 
 /// @class Application
 /// @brief Represents an application
 class Application : public Singleton<Application> {
 private:
-    GLContext context; ///< The window that the app is running, see Window for more information
-    int fps{}; ///< The fps of the application
-    Chronometer fpsChronometer; ///< The chronometer used to calculate the fps
+    GLContext context;         ///< The window that the app is running, see Window for more information
+    int fps{};                 ///< The fps of the application
+    Chronometer fpsChronometer;///< The chronometer used to calculate the fps
 public:
-
     /// @brief Creates an application
     Application();
 
     /// @brief Destroys the application
     ~Application();
 
-    /// @brief Runs the application
+    /// @brief Starts the application
     void start();
 };
 
-#endif //SDL_LIBRARY_APPLICATION_H
+#endif//SDL_LIBRARY_APPLICATION_H

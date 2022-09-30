@@ -40,11 +40,11 @@ public:
 
     /// @brief Gets the width of the window
     /// @return The width of the window
-    int getWidth() const;
+    [[nodiscard]] int getWidth() const;
 
     /// @brief Gets the height of the window
     /// @return The height of the window
-    int getHeight() const;
+    [[nodiscard]] int getHeight() const;
 };
 
 

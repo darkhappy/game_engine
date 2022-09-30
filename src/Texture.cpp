@@ -3,6 +3,7 @@
 //
 
 #include "Texture.h"
+#include <SDL2/SDL_image.h>
 
 Texture::Texture(const char *path) {
     if (path == nullptr) {

@@ -5,13 +5,9 @@
 #ifndef GAME_ENGINE_SCREENSAVER_H
 #define GAME_ENGINE_SCREENSAVER_H
 
-
-#include <vector>
 #include "GLContext.h"
 #include "Texture.h"
 #include "TTFont.h"
-
-using std::vector;
 
 class Screensaver {
 private:
