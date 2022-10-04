@@ -39,15 +39,12 @@ void GLContext::draw() {
 void GLContext::drawRectangle(Vector3d position, Vector3d size) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
     glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex2d(position.x, position.y);
-    glTexCoord2d(1, 0);
-    glVertex2d(position.x + size.x, position.y);
-    glTexCoord2d(1, 1);
-    glVertex2d(position.x + size.x, position.y + size.y);
-    glTexCoord2d(0, 1);
-    glVertex2d(position.x, position.y + size.y);
+        glTexCoord2d(0, 0); glVertex2d(position.x, position.y);
+        glTexCoord2d(1, 0); glVertex2d(position.x + size.x, position.y);
+        glTexCoord2d(1, 1); glVertex2d(position.x + size.x, position.y + size.y);
+        glTexCoord2d(0, 1); glVertex2d(position.x, position.y + size.y);
     glEnd();
 }
 

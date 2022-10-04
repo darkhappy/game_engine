@@ -70,6 +70,13 @@ void TTFont::setSize(int newSize) {
     load();
 }
 
+void TTFont::setPath(const string &path) {
+    TTF_CloseFont(font);
+    this->path = path;
+    font = TTF_OpenFont(path.c_str(), size)
+    load();
+}
+
 int TTFont::getWidth() const {
     return width;
 }
@@ -84,4 +91,8 @@ int TTFont::getSize() const {
 
 SDL_Color TTFont::getColour() const {
     return color;
+}
+
+string getPath() const {
+    return path;
 }

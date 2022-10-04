@@ -15,8 +15,8 @@ class TTFont : public Texture {
 private:
     TTF_Font *font; ///< The font
     SDL_Color color{}; ///< The color
-    std::string text; ///< The text
-    std::string path; ///< Path of the font
+    string text; ///< The text
+    string path; ///< Path of the font
 
     int size{}; ///< The size
     int width{}; ///< The width
@@ -34,6 +34,8 @@ public:
 
     void setSize(int newSize);
 
+    void setPath(const string &path);
+
     [[nodiscard]] SDL_Color getColour() const;
 
     [[nodiscard]] int getSize() const;
@@ -41,6 +43,8 @@ public:
     [[nodiscard]] int getWidth() const;
 
     [[nodiscard]] int getHeight() const;
+
+    [[nodiscard]] string getPath() const;
 };
 
 
