@@ -4,7 +4,7 @@
 
 #include "Screensaver.h"
 
-Screensaver::Screensaver(GLContext *context, Texture *texture, TTFont *font, double x, double y, double width,
+Screensaver::Screensaver(GLContext *context, Texture *texture, Texture *font, double x, double y, double width,
                          double height, double horizontalSpeed, double verticalSpeed) {
     this->x = x;
     this->y = y;
@@ -14,7 +14,7 @@ Screensaver::Screensaver(GLContext *context, Texture *texture, TTFont *font, dou
     this->horizontalSpeed = horizontalSpeed;
     this->context = context;
     this->texture = texture;
-    this->font = font;
+    this->text = font;
 }
 
 void Screensaver::swapHorizontalDirection() {
@@ -28,11 +28,9 @@ void Screensaver::swapVerticalDirection() {
 void Screensaver::draw() {
     texture->bind();
     GLContext::drawRectangle(Vector3d(x, y), Vector3d(width, height));
-    Texture::unbind();
 
-    if (font != nullptr) {
-        GLContext::drawFont(*font, Vector3d(x, y - font->getHeight()));
-    }
+    text->bind();
+    GLContext::drawRectangle(Vector3d(x, y - text->getHeight()), Vector3d(text->getWidth(), text->getHeight()));
 }
 
 void Screensaver::update() {
@@ -43,8 +41,8 @@ void Screensaver::update() {
     } else if (y + height >= context->getHeight()) {
         y = context->getHeight() - height;
         swapVerticalDirection();
-    } else if (y - font->getHeight() <= 0) {
-        y = font->getHeight();
+    } else if (y - text->getHeight() <= 0) {
+        y = text->getHeight();
         swapVerticalDirection();
     }
 
@@ -54,8 +52,8 @@ void Screensaver::update() {
     if (x <= 0) {
         x = 0;
         swapHorizontalDirection();
-    } else if (x + font->getWidth() >= context->getWidth()) {
-        x = context->getWidth() - font->getWidth();
+    } else if (x + text->getWidth() >= context->getWidth()) {
+        x = context->getWidth() - text->getWidth();
         swapHorizontalDirection();
     } else if (x + width >= context->getWidth()) {
         x = context->getWidth() - width;

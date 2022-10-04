@@ -13,7 +13,7 @@ class Screensaver {
 private:
     GLContext *context; ///< The context
     Texture *texture; ///< The texture texture
-    TTFont *font; ///< The font
+    Texture *text; ///< The text
 
 public:
     double x; ///< The x position of the screensaver
@@ -23,7 +23,7 @@ public:
     double verticalSpeed; ///< The vertical speed of the screensaver
     double horizontalSpeed; ///< The horizontal speed of the screensaver
 
-    Screensaver(GLContext *context, Texture *texture, TTFont *font, double x = 0, double y = 0, double width = 100,
+    Screensaver(GLContext *context, Texture *texture, Texture *font, double x = 0, double y = 0, double width = 100,
                 double height = 100, double horizontalSpeed = 1, double verticalSpeed = 1);
 
     void draw();

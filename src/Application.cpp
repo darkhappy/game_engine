@@ -29,11 +29,19 @@ void Application::start() {
     std::srand(std::time(nullptr));
 
     Texture gopher(ASSETS "/images/gopher.png");
+
     TTFont gopherFont(ASSETS "/fonts/meslo.ttf", 20, "gopher gopher gopher gopher", {150, 150, 255, 255});
     TTFont instructionsFont(ASSETS "/fonts/meslo.ttf", 20, "Left click: gopher", {255, 255, 255, 255});
     TTFont instructionsFont2(ASSETS "/fonts/meslo.ttf", 20, "Right click: clear gopher", {255, 255, 255, 255});
     TTFont gopherCountFont(ASSETS "/fonts/meslo.ttf", 20, "Gopher count: 0", {255, 255, 255, 255});
     TTFont framesCounter(ASSETS "/fonts/meslo.ttf", 24, "fps: 0");
+
+    auto *gopherText = new Texture(*gopherFont.getSurface(), true);
+    auto *instructions = new Texture(*instructionsFont.getSurface(), true);
+    auto *instructions2 = new Texture(*instructionsFont2.getSurface(), true);
+    auto *gopherCount = new Texture(*gopherCountFont.getSurface(), true);
+    auto *framesCounterText = new Texture(*framesCounter.getSurface(), true);
+
     Chronometer tick;
     std::vector<Screensaver> gophersavers;
 
@@ -57,17 +65,19 @@ void Application::start() {
                             int forward = rand() % 100000 > 50000 ? 1 : -1;
                             int up = rand() % 100000 > 50000 ? 1 : -1;
 
-                            gophersavers.emplace_back(&context, &gopher, &gopherFont, Event::getMouseX(),
+                            gophersavers.emplace_back(&context, &gopher, gopherText, Event::getMouseX(),
                                                       Event::getMouseY(), 100, 100, rand() % 100 / 25.0 * forward,
                                                       rand() % 100 / 25.0 * up);
                         }
-                        gopherCountFont.setText("Gopher count: " + std::to_string(gophersavers.size()));
+                        delete gopherCount;
+                        gopherCount = new Texture(*gopherCountFont.setText("Gopher count: " + std::to_string(gophersavers.size())));
                     }
 
                     // If the user clicks on the right button, clear the vimsavers
                     if (Event::getMouseButton() == SDL_BUTTON_RIGHT) {
                         gophersavers.clear();
-                        gopherCountFont.setText("Gopher count: 0");
+                        delete gopherCount;
+                        gopherCount = new Texture(*gopherCountFont.setText("Gopher count: 0"));
                     }
                     break;
                 default:
@@ -93,12 +103,17 @@ void Application::start() {
         for (auto &screen: gophersavers)
             screen.draw();
 
-        GLContext::drawFont(framesCounter, Vector3d(10, 10));
-        GLContext::drawFont(instructionsFont, Vector3d(10, 80));
-        GLContext::drawFont(instructionsFont2, Vector3d(10, 105));
-        GLContext::drawFont(gopherCountFont, Vector3d(10, 35));
+        framesCounterText->bind();
+        GLContext::drawRectangle(Vector3d(10, 10), Vector3d(framesCounterText->getWidth(), framesCounterText->getHeight()));
 
-        GLContext::drawFont(gopherFont, Vector3d(10, 60));
+        gopherCount->bind();
+        GLContext::drawRectangle(Vector3d(10, 40), Vector3d(gopherCount->getWidth(), gopherCount->getHeight()));
+
+        instructions->bind();
+        GLContext::drawRectangle(Vector3d(10, 80), Vector3d(instructions->getWidth(), instructions->getHeight()));
+
+        instructions2->bind();
+        GLContext::drawRectangle(Vector3d(10, 105), Vector3d(instructions2->getWidth(), instructions2->getHeight()));
 
         context.update();
 
@@ -107,7 +122,8 @@ void Application::start() {
         if (fpsChronometer.getElapsedTime() >= 1) {
             fps = frames / fpsChronometer.getElapsedTime();
             frames = 0;
-            framesCounter.setText("fps: " + std::to_string(fps));
+            delete framesCounterText;
+            framesCounterText = new Texture(*framesCounter.setText("fps: " + std::to_string(fps)));
             fpsChronometer.startChronometer();
         }
     }

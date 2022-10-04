@@ -44,8 +44,6 @@ public:
     void draw();
 
     static void drawRectangle(Vector3d position, Vector3d size);
-
-    static void drawFont(const TTFont &font, Vector3d position);
 };
 
 #endif // SDL_LIBRARY_GLCONTEXT_H

@@ -5,7 +5,7 @@
 #include "GLContext.h"
 
 GLContext::GLContext(const char *title, int windowX, int windowY, int width, int height, unsigned int flags)
-        : Window(title, windowX, windowY, width, height, flags | SDL_WINDOW_OPENGL) {
+    : Window(title, windowX, windowY, width, height, flags | SDL_WINDOW_OPENGL) {
     TTF_Init();
 
     context = SDL_GL_CreateContext(window);
@@ -41,15 +41,13 @@ void GLContext::drawRectangle(Vector3d position, Vector3d size) {
     glLoadIdentity();
 
     glBegin(GL_QUADS);
-        glTexCoord2d(0, 0); glVertex2d(position.x, position.y);
-        glTexCoord2d(1, 0); glVertex2d(position.x + size.x, position.y);
-        glTexCoord2d(1, 1); glVertex2d(position.x + size.x, position.y + size.y);
-        glTexCoord2d(0, 1); glVertex2d(position.x, position.y + size.y);
+    glTexCoord2d(0, 0);
+    glVertex2d(position.x, position.y);
+    glTexCoord2d(1, 0);
+    glVertex2d(position.x + size.x, position.y);
+    glTexCoord2d(1, 1);
+    glVertex2d(position.x + size.x, position.y + size.y);
+    glTexCoord2d(0, 1);
+    glVertex2d(position.x, position.y + size.y);
     glEnd();
-}
-
-void GLContext::drawFont(const TTFont &font, Vector3d position) {
-    font.bind();
-    GLContext::drawRectangle(position, Vector3d(font.getWidth(), font.getHeight()));
-    TTFont::unbind();
 }

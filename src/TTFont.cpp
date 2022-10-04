@@ -4,25 +4,23 @@
 
 #include "TTFont.h"
 
-TTFont::TTFont(const char *path, int size, const std::string &text, SDL_Color color) : Texture(nullptr) {
+TTFont::TTFont(const char *path, int size, const std::string &text, SDL_Color color) {
     this->color = color;
     this->text = text;
     this->size = size;
     this->path = path;
     font = TTF_OpenFont(path, size);
-
-    load();
 }
 
 TTFont::~TTFont() {
     TTF_CloseFont(font);
 }
 
-void TTFont::load() {
-    SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
+SDL_Surface *TTFont::getSurface() {
+    surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 
     // Fix the text being weirdly rendered
-    unsigned int realPitch = surface->w * surface->format->BytesPerPixel;
+    int realPitch = surface->w * surface->format->BytesPerPixel;
     auto *src = (unsigned char *) surface->pixels;
     unsigned char *dst = src;
     for (size_t y = 0; y < surface->h; y++) {
@@ -32,57 +30,31 @@ void TTFont::load() {
     }
     surface->pitch = realPitch;
 
-    glGenTextures(1, &textureID);
-    bind();
-
-#ifdef __APPLE__
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
-                 0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
-#else
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface.w, surface.h,
-                 0, GL_RGBA, GL_UNSIGNED_BYTE, surface.pixels);
-#endif
-
-    width = surface->w;
-    height = surface->h;
-    SDL_FreeSurface(surface);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    unbind();
+    return surface;
 }
 
-void TTFont::setText(const std::string &text) {
+SDL_Surface *TTFont::setText(const std::string &text) {
     this->text = text;
-    load();
+    return getSurface();
 }
 
-void TTFont::setColor(SDL_Color color) {
+SDL_Surface *TTFont::setColor(SDL_Color color) {
     this->color = color;
-    load();
+    return getSurface();
 }
 
-void TTFont::setSize(int newSize) {
+SDL_Surface *TTFont::setSize(int newSize) {
     TTF_CloseFont(font);
     this->size = newSize;
     font = TTF_OpenFont(path.c_str(), newSize);
-    load();
+    return getSurface();
 }
 
-void TTFont::setPath(const string &path) {
+SDL_Surface *TTFont::setPath(const string &path) {
     TTF_CloseFont(font);
     this->path = path;
-    font = TTF_OpenFont(path.c_str(), size)
-    load();
-}
-
-int TTFont::getWidth() const {
-    return width;
-}
-
-int TTFont::getHeight() const {
-    return height;
+    font = TTF_OpenFont(path.c_str(), size);
+    return getSurface();
 }
 
 int TTFont::getSize() const {
@@ -92,7 +64,6 @@ int TTFont::getSize() const {
 SDL_Color TTFont::getColour() const {
     return color;
 }
-
-string getPath() const {
+string TTFont::getPath() const {
     return path;
 }
