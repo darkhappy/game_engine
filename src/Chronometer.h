@@ -1,6 +1,6 @@
-//
-// Created by Jean-Philippe on 2022-09-26.
-//
+/// @file Chronometer.h
+/// @brief Contains the declaration of the Chronometer class
+/// @author Jean-Philippe (me\@darkh.app)
 
 #ifndef GAME_ENGINE_CHRONOMETER_H
 #define GAME_ENGINE_CHRONOMETER_H
@@ -21,11 +21,11 @@ public:
     Chronometer();
 
     /// @brief Restarts the chronometer.
-    void startChronometer();
+    void reset();
 
     /// @brief Gets the elapsed time since the chronometer was started.
     /// @return The elapsed time since the chronometer was started.
-    double getElapsedTime();
+    [[nodiscard]] double getDelta() const;
 };
 
 

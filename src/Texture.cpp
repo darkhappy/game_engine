@@ -1,11 +1,11 @@
-//
-// Created by Jean-Philippe on 2022-09-27.
-//
+/// @file Texture.cpp
+/// @brief Contains the implementation of the Texture class in Texture.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "Texture.h"
 #include <SDL2/SDL_image.h>
 
-Texture::Texture(const char *path) : Texture(*IMG_Load(path)) {}
+Texture::Texture(const string &path) : Texture(*IMG_Load(path.c_str())) {}
 
 Texture::Texture(const SDL_Surface &surface, bool isFont) {
     this->width = surface.w;
@@ -41,14 +41,14 @@ void Texture::bind() const {
     glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
-GLuint Texture::getTextureID() const {
+const GLuint &Texture::getTextureID() const {
     return textureID;
 }
 
-int Texture::getWidth() const {
+const int &Texture::getWidth() const {
     return width;
 }
 
-int Texture::getHeight() const {
+const int &Texture::getHeight() const {
     return height;
 }

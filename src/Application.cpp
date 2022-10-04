@@ -45,8 +45,8 @@ void Application::start() {
     Chronometer tick;
     std::vector<Screensaver> gophersavers;
 
-    tick.startChronometer();
-    fpsChronometer.startChronometer();
+    tick.reset();
+    fpsChronometer.reset();
 
     while (running) {
         while (Event::poll()) {
@@ -87,13 +87,13 @@ void Application::start() {
 
         // Updating
         // Each tick is 1/120th of a second
-        double delta = tick.getElapsedTime();
+        double delta = tick.getDelta();
 
         if (delta >= 1.0 / 120.0) {
             for (auto &gophersaver: gophersavers)
                 gophersaver.update();
 
-            tick.startChronometer();
+            tick.reset();
         }
 
         // Drawing
@@ -119,12 +119,12 @@ void Application::start() {
 
         // Handle FPS
         frames++;
-        if (fpsChronometer.getElapsedTime() >= 1) {
-            fps = frames / fpsChronometer.getElapsedTime();
+        if (fpsChronometer.getDelta() >= 1) {
+            fps = frames / fpsChronometer.getDelta();
             frames = 0;
             delete framesCounterText;
             framesCounterText = new Texture(*framesCounter.setText("fps: " + std::to_string(fps)));
-            fpsChronometer.startChronometer();
+            fpsChronometer.reset();
         }
     }
 }

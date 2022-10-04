@@ -1,18 +1,19 @@
-//
-// Created by Jean-Philippe on 2022-09-28.
-//
+/// @file TTFont.cpp
+/// @brief Contains the implementation of the TTFont class in TTFont.h
+/// @author Jean-Philippe (me\@darkh.app)
 
 #include "TTFont.h"
 
-TTFont::TTFont(const char *path, int size, const std::string &text, SDL_Color color) {
+TTFont::TTFont(const string &path, const int &size, const string &text, const SDL_Color &color) {
     this->color = color;
     this->text = text;
     this->size = size;
     this->path = path;
-    font = TTF_OpenFont(path, size);
+    font = TTF_OpenFont(path.c_str(), size);
 }
 
 TTFont::~TTFont() {
+    SDL_FreeSurface(surface);
     TTF_CloseFont(font);
 }
 
@@ -33,37 +34,41 @@ SDL_Surface *TTFont::getSurface() {
     return surface;
 }
 
-SDL_Surface *TTFont::setText(const std::string &text) {
-    this->text = text;
+SDL_Surface *TTFont::setText(const std::string &newText) {
+    this->text = newText;
     return getSurface();
 }
 
-SDL_Surface *TTFont::setColor(SDL_Color color) {
-    this->color = color;
+SDL_Surface *TTFont::setColor(const SDL_Color &newColor) {
+    this->color = newColor;
     return getSurface();
 }
 
-SDL_Surface *TTFont::setSize(int newSize) {
+SDL_Surface *TTFont::setSize(const int &newSize) {
     TTF_CloseFont(font);
     this->size = newSize;
     font = TTF_OpenFont(path.c_str(), newSize);
     return getSurface();
 }
 
-SDL_Surface *TTFont::setPath(const string &path) {
+SDL_Surface *TTFont::setPath(const string &newPath) {
     TTF_CloseFont(font);
-    this->path = path;
-    font = TTF_OpenFont(path.c_str(), size);
+    this->path = newPath;
+    font = TTF_OpenFont(newPath.c_str(), size);
     return getSurface();
 }
 
-int TTFont::getSize() const {
+const int &TTFont::getSize() const {
     return size;
 }
 
-SDL_Color TTFont::getColour() const {
+const SDL_Color &TTFont::getColor() const {
     return color;
 }
-string TTFont::getPath() const {
+
+const string &TTFont::getPath() const {
     return path;
+}
+const string &TTFont::getText() const {
+    return text;
 }
