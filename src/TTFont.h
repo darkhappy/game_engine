@@ -9,6 +9,8 @@
 #include <string>
 #include "Texture.h"
 
+using std::string;
+
 class TTFont : public Texture {
 private:
     TTF_Font *font; ///< The font
@@ -22,11 +24,11 @@ private:
 
     void load();
 public:
-    TTFont(const char *path, int size, const std::string &text = " ", SDL_Color color = {255, 255, 255, 255});
+    TTFont(const char *path, int size, const string &text = " ", SDL_Color color = {255, 255, 255, 255});
 
     ~TTFont();
 
-    void setText(const std::string &text);
+    void setText(const string &text);
 
     void setColor(SDL_Color color);
 

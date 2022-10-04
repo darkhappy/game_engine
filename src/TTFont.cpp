@@ -20,6 +20,7 @@ TTFont::~TTFont() {
 
 void TTFont::load() {
     SDL_Surface *surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
+
     // Fix the text being weirdly rendered
     unsigned int realPitch = surface->w * surface->format->BytesPerPixel;
     auto *src = (unsigned char *) surface->pixels;
@@ -34,7 +35,6 @@ void TTFont::load() {
     glGenTextures(1, &textureID);
     bind();
 
-
 #ifdef __APPLE__
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h,
                  0, GL_BGRA, GL_UNSIGNED_BYTE, surface->pixels);
@@ -42,6 +42,7 @@ void TTFont::load() {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface.w, surface.h,
                  0, GL_RGBA, GL_UNSIGNED_BYTE, surface.pixels);
 #endif
+
     width = surface->w;
     height = surface->h;
     SDL_FreeSurface(surface);
