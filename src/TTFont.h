@@ -22,6 +22,10 @@ private:
     SDL_Surface *surface{};///< The surface used to render the text.
 
     int size;///< The point size
+
+    /// @brief Generates the surface.
+    /// @return The surface generated.
+    SDL_Surface *generateSurface();
 public:
     /// @param path The path to the font.
     /// @param size The point size.

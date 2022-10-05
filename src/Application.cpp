@@ -123,7 +123,8 @@ void Application::start() {
             fps = frames / fpsChronometer.getDelta();
             frames = 0;
             delete framesCounterText;
-            framesCounterText = new Texture(*framesCounter.setText("fps: " + std::to_string(fps)));
+            framesCounter.setText("fps: " + std::to_string(fps));
+            framesCounterText = new Texture(*framesCounter.getSurface());
             fpsChronometer.reset();
         }
     }

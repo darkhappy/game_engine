@@ -10,6 +10,7 @@ TTFont::TTFont(const string &path, const int &size, const string &text, const SD
     this->size = size;
     this->path = path;
     font = TTF_OpenFont(path.c_str(), size);
+    surface = generateSurface();
 }
 
 TTFont::~TTFont() {
@@ -17,7 +18,7 @@ TTFont::~TTFont() {
     TTF_CloseFont(font);
 }
 
-SDL_Surface *TTFont::getSurface() {
+SDL_Surface *TTFont::generateSurface() {
     surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
 
     // Fix the text being weirdly rendered
@@ -34,28 +35,32 @@ SDL_Surface *TTFont::getSurface() {
     return surface;
 }
 
+SDL_Surface *TTFont::getSurface() {
+    return surface;
+}
+
 SDL_Surface *TTFont::setText(const std::string &newText) {
     this->text = newText;
-    return getSurface();
+    return generateSurface();
 }
 
 SDL_Surface *TTFont::setColor(const SDL_Color &newColor) {
     this->color = newColor;
-    return getSurface();
+    return generateSurface();
 }
 
 SDL_Surface *TTFont::setSize(const int &newSize) {
     TTF_CloseFont(font);
     this->size = newSize;
     font = TTF_OpenFont(path.c_str(), newSize);
-    return getSurface();
+    return generateSurface();
 }
 
 SDL_Surface *TTFont::setPath(const string &newPath) {
     TTF_CloseFont(font);
     this->path = newPath;
     font = TTF_OpenFont(newPath.c_str(), size);
-    return getSurface();
+    return generateSurface();
 }
 
 const int &TTFont::getSize() const {
